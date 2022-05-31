@@ -630,7 +630,7 @@ export class TodaydashboardComponent implements OnInit {
           this.arr = this.inputdate.split(' ');
           this.inputdate = this.arr[2] + "-" + this.monthmap.get(this.arr[0]) + "-" + this.arr[1];
           res['products'].forEach((x) => {
-            if (x.date === this.inputdate) {////convert input date to map format
+            if (x.date === this.inputdate && x.nowtime!==undefined) {////convert input date to map format
               this.linemap.set(x.nowtime.substring(0, 2), this.linemap.get(x.nowtime.substring(0, 2)) + 1);
               if (x.api.split('/')[1] === 'booking') {
                 this.bookingmap.set(x.nowtime.substring(0, 2), this.bookingmap.get(x.nowtime.substring(0, 2)) + 1);
@@ -656,7 +656,7 @@ export class TodaydashboardComponent implements OnInit {
           })
           this.apimap = new Map();
           res['products'].forEach((x) => {
-            if (x.date === this.inputdate && x.api.indexOf('mioperations') === -1 && x.api.indexOf('fetchuserroles') === -1 && x.api.indexOf('regiondetails') === -1) {
+            if (x.date === this.inputdate && x.nowtime!==undefined && x.api.indexOf('mioperations') === -1 && x.api.indexOf('fetchuserroles') === -1 && x.api.indexOf('regiondetails') === -1) {
               if (this.apimap.has(x.api.substring(0, 1) + x.api.substring(x.api.split('/')[1].length + 2))) {
                 this.apimap.set(x.api.substring(0, 1) + x.api.substring(x.api.split('/')[1].length + 2), this.apimap.get(x.api.substring(0, 1) + x.api.substring(x.api.split('/')[1].length + 2)) + 1);
               }
@@ -711,7 +711,7 @@ export class TodaydashboardComponent implements OnInit {
 
           res['products'].forEach((x) => {
 
-            if (x.date === this.inputdate) {
+            if (x.date === this.inputdate && x.nowtime!==undefined) {
               var table1modelData: table1model = {
                 api: x.api.substring(0, 1) + x.api.substring(x.api.split('/')[1].length + 2),
                 module: x.api.split("/")[1],
